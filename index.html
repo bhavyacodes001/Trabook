@@ -20,9 +20,13 @@
                 <li><a href="#">Blog</a></li>
             </ul>
             <div class="auth">
-                <a href="#" class="login">Login</a>
-                <a href="#" class="signup">Sign Up</a>
+                <a href="#" class="login" onclick="showModal('login-modal')">Login</a>
+                <a href="#" class="signup" onclick="showModal('signup-modal')">Sign Up</a>
             </div>
+            <button id="cart-button" class="cart-button">
+                🧳
+                <span id="cart-count" class="cart-count">0</span>
+            </button>
         </nav>
 
         <div class="hero">
@@ -74,28 +78,32 @@
             <h3>Madrid</h3>
             <p>⭐ 4.8 | 📍 Spain</p>
             <p class="price"><del>$950</del> <span>$850</span></p>
-            <a href="#" class="book-now">Book Now</a>
+            <a href="#" class="book-now" onclick="bookNow('deal1', 'Madrid', '$850')">Book Now</a>
+            <button class="add-to-cart" onclick="addToCart('deal1', 'Madrid', '$850', 'madrid.jpg', 'Spain')">Add to Cart</button>
         </div>
         <div class="deal-card">
             <img src=italy.jpg alt="Firenze">
             <h3>Firenze</h3>
             <p>⭐ 4.5 | 📍 Italy</p>
             <p class="price"><del>$850</del> <span>$750</span></p>
-            <a href="#" class="book-now">Book Now</a>
+            <a href="#" class="book-now" onclick="bookNow('deal2', 'Firenze', '$750')">Book Now</a>
+            <button class="add-to-cart" onclick="addToCart('deal2', 'Firenze', '$750', 'italy.jpg', 'Italy')">Add to Cart</button>
         </div>
         <div class="deal-card">
             <img src=paris.jpg alt="Paris">
             <h3>Paris</h3>
             <p>⭐ 4.4 | 📍 France</p>
             <p class="price"><del>$699</del> <span>$599</span></p>
-            <a href="#" class="book-now">Book Now</a>
+            <a href="#" class="book-now" onclick="bookNow('deal3', 'Paris', '$599')">Book Now</a>
+            <button class="add-to-cart" onclick="addToCart('deal3', 'Paris', '$599', 'paris.jpg', 'France')">Add to Cart</button>
         </div>
         <div class="deal-card">
             <img src=luke.jpg alt="London">
             <h3>London</h3>
             <p>⭐ 4.8 | 📍 UK</p>
             <p class="price"><del>$950</del> <span>$850</span></p>
-            <a href="#" class="book-now">Book Now</a>
+            <a href="#" class="book-now" onclick="bookNow('deal4', 'London', '$850')">Book Now</a>
+            <button class="add-to-cart" onclick="addToCart('deal4', 'London', '$850', 'luke.jpg', 'UK')">Add to Cart</button>
         </div>
     </div>
 </section>
@@ -111,29 +119,105 @@
             <h3>Rome, Italy</h3>
             <p class="price">$5,420</p>
             <p>⭐ 4.8 | 📅 10 Days Trip</p>
-            <a href="#" class="book-now">Book Now</a>
+            <a href="#" class="book-now" onclick="bookNow('vac1', 'Rome', '$5,420', '10 Days Trip')">Book Now</a>
+            <button class="add-to-cart" onclick="addToCart('vac1', 'Rome', '$5,420', 'rome.jpg', 'Italy', '10 Days Trip')">Add to Cart</button>
         </div>
         <div class="vacation-card">
-            <img src=eng.jpg alt="London, UK">
-            <h3>London, UK</h3>
+            <img src=eng.jpg alt="Edinburgh, UK">
+            <h3>Edinburgh, UK</h3>
             <p class="price">$3,920</p>
             <p>⭐ 4.9 | 📅 07 Days Trip</p>
-            <a href="#" class="book-now">Book Now</a>
+            <a href="#" class="book-now" onclick="bookNow('vac2', 'Edinburgh', '$3,920', '7 Days Trip')">Book Now</a>
+            <button class="add-to-cart" onclick="addToCart('vac2', 'Edinburgh', '$3,920', 'eng.jpg', 'UK', '7 Days Trip')">Add to Cart</button>
         </div>
         <div class="vacation-card">
             <img src=osaka.jpg alt="Osaka, Japan">
             <h3>Osaka, Japan</h3>
             <p class="price">$5,420</p>
             <p>⭐ 4.8 | 📅 10 Days Trip</p>
-            <a href="#" class="book-now">Book Now</a>
+            <a href="#" class="book-now" onclick="bookNow('vac3', 'Osaka', '$5,420', '10 Days Trip')">Book Now</a>
+            <button class="add-to-cart" onclick="addToCart('vac3', 'Osaka', '$5,420', 'osaka.jpg', 'Japan', '10 Days Trip')">Add to Cart</button>
         </div>
     </div>
 </section>
+
+    <!-- Shopping Cart -->
+    <div id="cart-container" class="cart-container">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button id="close-cart" class="close-cart">&times;</button>
+        </div>
+        <div id="cart-items" class="cart-items">
+            <!-- Cart items will be added dynamically -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <h4>Total:</h4>
+                <span id="cart-total">$0</span>
+            </div>
+            <button id="checkout-button" class="checkout-button">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Login</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="login-form" class="auth-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit">Login</button>
+                <div class="form-footer">
+                    Don't have an account? <a href="#" onclick="closeModal('login-modal'); showModal('signup-modal')">Sign up</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signup-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Sign Up</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="signup-form" class="auth-form">
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required>
+                </div>
+                <button type="submit">Create Account</button>
+                <div class="form-footer">
+                    Already have an account? <a href="#" onclick="closeModal('signup-modal'); showModal('login-modal')">Login</a>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer>
         <p>© 2025 Trabook. All Rights Reserved.</p>
     </footer>
 
+    <!-- JavaScript -->
+    <script src="auth.js"></script>
+    <script src="cart.js"></script>
 </body>
 </html>
