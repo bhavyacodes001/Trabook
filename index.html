@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trabook - Travel Agency</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
 
@@ -19,14 +20,16 @@
                 <li><a href="#">Tour</a></li>
                 <li><a href="#">Blog</a></li>
             </ul>
-            <div class="auth">
-                <a href="#" class="login" onclick="showModal('login-modal')">Login</a>
-                <a href="#" class="signup" onclick="showModal('signup-modal')">Sign Up</a>
+            <div class="auth-cart-container">
+                <div class="auth">
+                    <a href="#" class="login" onclick="showModal('login-modal')">Login</a>
+                    <a href="#" class="signup" onclick="showModal('signup-modal')">Sign Up</a>
+                </div>
+                <button id="cart-button" class="cart-button">
+                    🧳
+                    <span id="cart-count" class="cart-count">0</span>
+                </button>
             </div>
-            <button id="cart-button" class="cart-button">
-                🧳
-                <span id="cart-count" class="cart-count">0</span>
-            </button>
         </nav>
 
         <div class="hero">
